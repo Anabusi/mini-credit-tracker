@@ -4,7 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f6f8ff">
-<title>Мои кредиты — прототип</title>
+<title>Мои кредиты</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <style>
 :root{
   --bg:#f6f8ff;--card:#ffffff;--ink:#26324b;--muted:#77819a;
@@ -128,13 +131,7 @@ const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.get
 const monthKey=s=>{const d=new Date(s+'T12:00:00');return `${d.getFullYear()}-${d.getMonth()}`};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function shiftDate(date,frequency){let d=new Date(date+'T12:00:00');if(frequency==='weekly')d.setDate(d.getDate()+7);else if(frequency==='monthly'){const day=d.getDate();d.setDate(1);d.setMonth(d.getMonth()+1);const last=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();d.setDate(Math.min(day,last));}return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-function load(){try{const saved=localStorage.getItem(STORAGE_KEY);if(saved!==null)return JSON.parse(saved)}catch{}
- const demo=[
-  {id:'demo-1',name:'Пример · ПУМБ',remaining:4500,payment:1500,dueDate:todayISO(),frequency:'monthly',memo:'Демо-данные — можно изменить или удалить',original:6000},
-  {id:'demo-2',name:'Пример · Рассрочка',remaining:3200,payment:800,dueDate:shiftDate(todayISO(),'weekly'),frequency:'monthly',memo:'Демо-данные — можно изменить или удалить',original:4800},
-  {id:'demo-3',name:'Пример · Покупка',remaining:2400,payment:600,dueDate:shiftDate(shiftDate(todayISO(),'weekly'),'weekly'),frequency:'monthly',memo:'Демо-данные — можно изменить или удалить',original:3600}
- ];
- return demo}
+function load(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]')}catch{return []}}
 let credits=load(), editingId=null;
 credits.forEach(c=>{if(!Number(c.totalPayments))c.totalPayments=Math.max(1,Math.ceil(Number(c.original||c.remaining)/Number(c.payment)));if(c.paidCount==null)c.paidCount=0;});
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(credits));render()}
@@ -193,6 +190,13 @@ document.getElementById('creditForm').addEventListener('submit',e=>{e.preventDef
 document.getElementById('deleteBtn').onclick=()=>{if(!editingId)return;if(confirm('Удалить этот кредит из списка?')){credits=credits.filter(c=>c.id!==editingId);save();closeModal();toast('Кредит удалён')}};
 let toastTimer;function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2400)}
 render();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
