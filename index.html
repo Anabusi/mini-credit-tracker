@@ -3,26 +3,233 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#f6f8ff"><title>Мои кредиты</title>
 <style>
-:root{--bg:#f6f8ff;--card:#fff;--ink:#26324b;--muted:#77819a;--blue:#7199e8;--blue-dark:#4774cc;--blue-pale:#eaf1ff;--line:#e8ecf5;--green:#4d987d;--red:#c46f79;--shadow:0 8px 28px rgba(57,76,120,.08)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-rounded,"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:0 auto;padding:22px 16px 40px}header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 22px}.brand{display:flex;align-items:center;gap:11px}.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,#dce8ff,#f6e3ef);display:grid;place-items:center;font-size:23px}h1{font-size:23px;line-height:1.1;margin:0;letter-spacing:-.5px}.subtitle{font-size:12px;color:var(--muted);margin-top:5px}button.primary{border:0;border-radius:14px;background:var(--blue-dark);color:white;padding:12px 15px;font-weight:700;box-shadow:0 5px 12px #4774cc25}button.ghost{border:1px solid var(--line);background:white;color:var(--ink);border-radius:12px;padding:9px 12px}.summary{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:24px}.metric{background:var(--card);border:1px solid #edf0f8;border-radius:19px;padding:16px;box-shadow:var(--shadow);min-width:0}.metric.wide{grid-column:1/-1;background:linear-gradient(120deg,#eaf1ff,#f8eaf3)}.metric .label{font-size:12px;color:var(--muted);margin-bottom:8px}.metric .value{font-size:clamp(21px,5vw,28px);font-weight:800;letter-spacing:-.7px;white-space:nowrap}.metric .hint{font-size:11px;color:var(--muted);margin-top:6px}.metric .icon{float:right;font-size:19px}.section-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 12px}h2{font-size:17px;margin:0;letter-spacing:-.2px}.count{font-size:12px;color:var(--muted)}.list{display:grid;gap:12px}.credit{background:var(--card);border:1px solid #edf0f8;border-radius:19px;padding:16px;box-shadow:var(--shadow)}.credit-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.credit-name{font-size:16px;font-weight:800;overflow-wrap:anywhere}.credit-meta{font-size:12px;color:var(--muted);margin-top:5px}.pill{font-size:11px;font-weight:700;padding:6px 9px;border-radius:99px;background:var(--blue-pale);color:var(--blue-dark);white-space:nowrap}.pill.overdue{background:#fff0f0;color:var(--red)}.pill.done{background:#e7f5ef;color:var(--green)}.credit-numbers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 15px}.number-label{font-size:11px;color:var(--muted);margin-bottom:5px}.number-value{font-size:18px;font-weight:800}.number-value.small{font-size:15px}.progress{display:flex;gap:5px;overflow:hidden;margin:0 0 8px}.progress .segment{height:8px;flex:1;min-width:4px;background:#edf0f7;border-radius:99px}.progress .segment.filled{background:linear-gradient(90deg,#f27e9b,#f4a34e)}.payment-count{font-size:12px;color:var(--muted);margin:0 0 15px;font-weight:650}.payment-count strong{color:var(--ink)}.card-actions{display:flex;gap:8px;flex-wrap:wrap}.card-actions button{flex:1;min-width:100px}button.paid{border:0;border-radius:12px;background:#e8f2ff;color:#315da9;padding:10px 12px;font-weight:750}button.edit{border:1px solid var(--line);border-radius:12px;background:white;color:var(--muted);padding:10px 12px}.empty{padding:30px 18px;text-align:center;background:white;border:1px dashed #d7deee;border-radius:19px;color:var(--muted)}.empty .emoji{font-size:28px;margin-bottom:8px}.note{font-size:11px;color:var(--muted);line-height:1.5;margin:18px 3px 0}.modal-backdrop{position:fixed;inset:0;background:#1d294766;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:5}.modal-backdrop.open{display:flex}.modal{width:100%;max-width:520px;max-height:92vh;overflow:auto;background:var(--bg);border-radius:24px;padding:20px;box-shadow:0 20px 60px #1d294744}.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.modal h2{font-size:20px}.close{border:0;background:white;border-radius:50%;width:35px;height:35px;font-size:20px;color:var(--muted)}form{display:grid;gap:12px}.field{display:grid;gap:6px}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select{width:100%;border:1px solid #dfe5f1;border-radius:12px;background:white;padding:12px;color:var(--ink);outline:none}.field input:focus,.field select:focus{border-color:var(--blue)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.form-actions{display:flex;gap:8px;margin-top:5px}.form-actions button{flex:1}.danger{border:1px solid #f0d9dc;background:#fff7f7;color:var(--red);border-radius:12px;padding:10px 12px}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#26324b;color:white;padding:11px 16px;border-radius:99px;font-size:13px;transition:.2s;z-index:9;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}@media(min-width:620px){.summary{grid-template-columns:repeat(3,1fr)}.metric.wide{grid-column:auto}.modal-backdrop{align-items:center}.app{padding-top:28px}}
+:root{--bg:#f6f8ff;--card:#fff;--ink:#26324b;--muted:#77819a;--blue:#7199e8;--blue-dark:#4774cc;--blue-pale:#eaf1ff;--line:#e8ecf5;--green:#4d987d;--red:#c46f79;--shadow:0 8px 28px rgba(57,76,120,.08)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-rounded,"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:0 auto;padding:22px 16px 40px}header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 22px}.brand{display:flex;align-items:center;gap:11px}.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,#dce8ff,#f6e3ef);display:grid;place-items:center;font-size:23px}h1{font-size:23px;line-height:1.1;margin:0;letter-spacing:-.5px}.subtitle{font-size:12px;color:var(--muted);margin-top:5px}button.primary{border:0;border-radius:14px;background:var(--blue-dark);color:white;padding:12px 15px;font-weight:700;box-shadow:0 5px 12px #4774cc25}button.ghost{border:1px solid var(--line);background:white;color:var(--ink);border-radius:12px;padding:9px 12px}.summary{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:24px}.metric{background:var(--card);border:1px solid #edf0f8;border-radius:19px;padding:16px;box-shadow:var(--shadow);min-width:0}.metric.wide{grid-column:1/-1;background:linear-gradient(120deg,#eaf1ff,#f8eaf3)}.metric .label{font-size:12px;color:var(--muted);margin-bottom:8px}.metric .value{font-size:clamp(21px,5vw,28px);font-weight:800;letter-spacing:-.7px;white-space:nowrap}.metric .hint{font-size:11px;color:var(--muted);margin-top:6px}.metric .icon{float:right;font-size:19px}.section-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 12px}h2{font-size:17px;margin:0;letter-spacing:-.2px}.count{font-size:12px;color:var(--muted)}.list{display:grid;gap:12px}.credit{background:var(--card);border:1px solid #edf0f8;border-radius:19px;padding:16px;box-shadow:var(--shadow)}.credit-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.credit-name{font-size:16px;font-weight:800;overflow-wrap:anywhere}.credit-meta{font-size:12px;color:var(--muted);margin-top:5px}.pill{font-size:11px;font-weight:700;padding:6px 9px;border-radius:99px;background:var(--blue-pale);color:var(--blue-dark);white-space:nowrap}.pill.overdue{background:#fff0f0;color:var(--red)}.pill.done{background:#e7f5ef;color:var(--green)}.credit-numbers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 15px}.number-label{font-size:11px;color:var(--muted);margin-bottom:5px}.number-value{font-size:18px;font-weight:800}.number-value.small{font-size:15px}.progress{display:flex;gap:5px;overflow:hidden;margin:0 0 8px}.progress .segment{height:8px;flex:1;min-width:4px;background:#edf0f7;border-radius:99px}.progress .segment.filled{background:linear-gradient(90deg,#f27e9b,#f4a34e)}.payment-count{font-size:12px;color:var(--muted);margin:0 0 15px;font-weight:650}.payment-count strong{color:var(--ink)}.card-actions{display:flex;gap:8px;flex-wrap:wrap}.card-actions button{flex:1;min-width:100px}button.paid{border:0;border-radius:12px;background:#e8f2ff;color:#315da9;padding:10px 12px;font-weight:750}button.edit{border:1px solid var(--line);border-radius:12px;background:white;color:var(--muted);padding:10px 12px}.empty{padding:30px 18px;text-align:center;background:white;border:1px dashed #d7deee;border-radius:19px;color:var(--muted)}.empty .emoji{font-size:28px;margin-bottom:8px}.note{font-size:11px;color:var(--muted);line-height:1.5;margin:18px 3px 0}.modal-backdrop{position:fixed;inset:0;background:#1d294766;display:none;align-items:center;justify-content:center;padding:12px;z-index:5}.modal-backdrop.open{display:block}.modal{position:fixed;left:50%;top:50%;transform:translate3d(-50%,-50%,0);width:min(520px,calc(100vw - 24px));max-height:calc(100vh - 24px);max-height:calc(100vh - 24px);overflow:auto;background:var(--bg);border-radius:24px;padding:20px;box-shadow:0 20px 60px #1d294744}@supports(height:100dvh){.modal{max-height:calc(100dvh - 24px)}}.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.modal h2{font-size:20px}.close{border:0;background:white;border-radius:50%;width:44px;height:44px;min-width:44px;flex:0 0 44px;aspect-ratio:1;padding:0;display:grid;place-items:center;font-size:22px;line-height:1;color:var(--muted)}form{display:grid;gap:12px}.field{display:grid;gap:6px}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select{width:100%;border:1px solid #dfe5f1;border-radius:12px;background:white;padding:12px;color:var(--ink);outline:none}.field input:focus,.field select:focus{border-color:var(--blue)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.form-actions{display:flex;gap:8px;margin-top:5px}.form-actions button{flex:1}.danger{border:1px solid #f0d9dc;background:#fff7f7;color:var(--red);border-radius:12px;padding:10px 12px}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#26324b;color:white;padding:11px 16px;border-radius:99px;font-size:13px;transition:.2s;z-index:9;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}@media(min-width:620px){.summary{grid-template-columns:repeat(3,1fr)}.metric.wide{grid-column:auto}.modal-backdrop{align-items:center}.app{padding-top:28px}}
+
+.progress.solid{display:block;height:9px;background:#edf0f7;border-radius:99px;gap:0}
+.progress.solid .bar{height:100%;background:linear-gradient(90deg,#f27e9b,#f4a34e);border-radius:99px;transition:width .2s}
+.card-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.card-tools button{flex:1;min-width:110px;border:1px solid var(--line);border-radius:12px;background:white;color:var(--ink);padding:10px 9px;font-weight:700;font-size:12px}
+.card-tools button.expense{background:#fff5f5;color:#a95765;border-color:#f3dfe2}
+.card-tools button.repay{background:#edf7f2;color:#397b62;border-color:#dceee5}
+.card-tools button.schedule{background:#eef3ff;color:#426bb6;border-color:#dce6fb}
+ .card-tools button.mandatory{flex-basis:100%;background:#eaf3ff;color:#315da9;border-color:#d8e5fb;padding:13px;font-size:14px}
+ .card-tools button.extra{background:#fff;color:var(--muted);font-weight:650}
+ .action-help{font-size:12px;color:var(--muted);line-height:1.45;margin:-3px 0 3px}
+.history{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.history summary{font-size:12px;color:var(--muted);font-weight:700;cursor:pointer}
+.history-list{display:grid;gap:7px;margin-top:9px}
+.history-item{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--muted)}
+.history-item strong{color:var(--ink)}
+.monthly-box{margin:12px 0;padding:11px;border-radius:13px;background:#f7f8fc;font-size:12px}
+.monthly-box strong{font-size:14px}
+.monthly-box .muted{color:var(--muted);font-size:11px;margin-top:4px}
+.field select:focus{border-color:var(--blue)}
 </style></head><body><div class="app"><header><div class="brand"><div class="logo">💳</div><div><h1>Мои кредиты</h1><div class="subtitle">Всё важное — в одном месте</div></div></div><button class="primary" id="addBtn">＋ Добавить</button></header>
 <section class="summary" aria-label="Сводка"><div class="metric wide"><span class="icon">🫧</span><div class="label">Осталось выплатить</div><div class="value" id="totalDebt">—</div><div class="hint">Сумма будущих платежей по активным кредитам</div></div><div class="metric"><span class="icon">📆</span><div class="label">Платежи в этом месяце</div><div class="value" id="monthTotal">—</div><div class="hint" id="monthHint">Запланировано на этот месяц</div></div><div class="metric"><span class="icon">🔔</span><div class="label">Ближайший платёж</div><div class="value" id="nextAmount">—</div><div class="hint" id="nextHint">Нет предстоящих платежей</div></div></section>
 <div class="section-head"><h2>Твои кредиты</h2><span class="count" id="creditCount"></span></div><section class="list" id="creditList"></section><p class="note">Это личный список-напоминалка, а не банковский расчёт. Количество платежей и оставшаяся сумма рассчитываются ориентировочно по первоначальной сумме и размеру платежа; нестандартный последний платёж, проценты и комиссии могут отличаться от графика банка. Данные сохраняются в этом браузере на устройстве.</p></div>
-<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Новый кредит</h2><button class="close" id="closeModal" aria-label="Закрыть">×</button></div><form id="creditForm"><div class="field"><label for="name">Название</label><input id="name" required maxlength="60" placeholder="Например, рассрочка на телефон"></div><div class="form-grid"><div class="field"><label for="original">Первоначальная сумма кредита, ₴</label><input id="original" required type="number" min="0.01" step="0.01" placeholder="5000"></div><div class="field"><label for="payment">Размер платежа, ₴</label><input id="payment" required type="number" min="0.01" step="0.01" placeholder="615"></div></div><div class="form-grid"><div class="field"><label for="dueDate">Ближайшая дата</label><input id="dueDate" required type="date"></div><div class="field"><label for="frequency">Повтор платежа</label><select id="frequency"><option value="monthly">Каждый месяц</option><option value="weekly">Каждую неделю</option><option value="once">Только один платёж</option></select></div></div><div class="field"><label for="paidCountInput">Уже оплачено платежей</label><input id="paidCountInput" type="number" min="0" step="1" value="0" placeholder="Например, 3"><small style="font-size:11px;color:var(--muted)">Общее число платежей приложение рассчитает по первоначальной сумме и размеру платежа.</small></div><div class="field"><label for="memo">Заметка (необязательно)</label><input id="memo" maxlength="120" placeholder="Например, последний платёж в декабре"></div><div class="form-actions"><button class="primary" type="submit" id="saveBtn">Сохранить кредит</button><button class="ghost" type="button" id="cancelBtn">Отмена</button></div><button class="danger" type="button" id="deleteBtn" style="display:none">Удалить кредит</button></form></div></div><div class="toast" id="toast"></div>
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Новый кредит</h2><button class="close" id="closeModal" aria-label="Закрыть">×</button></div><form id="creditForm">
+<div class="field"><label for="recordType">Тип записи</label><select id="recordType"><option value="loan">Кредит / рассрочка</option><option value="card">Кредитная карта</option></select></div>
+<div class="field"><label for="name">Название</label><input id="name" required maxlength="60" placeholder="Например, рассрочка на телефон"></div>
+<div class="form-grid"><div class="field"><label id="originalLabel" for="original">Первоначальная сумма кредита, ₴</label><input id="original" required type="text" inputmode="decimal" autocomplete="off" placeholder="5000"></div><div class="field loan-only"><label for="payment">Размер платежа, ₴</label><input id="payment" type="text" inputmode="decimal" autocomplete="off" placeholder="615"></div></div>
+<div class="form-grid loan-only"><div class="field"><label for="dueDate">Ближайшая дата</label><input id="dueDate" type="date"></div><div class="field"><label for="frequency">Повтор платежа</label><select id="frequency"><option value="monthly">Каждый месяц</option><option value="weekly">Каждую неделю</option><option value="once">Только один платёж</option></select></div></div>
+<div class="field loan-only"><label for="paidCountInput">Уже оплачено платежей</label><input id="paidCountInput" type="text" inputmode="numeric" autocomplete="off" value="0"><small style="font-size:11px;color:var(--muted)">Общее число платежей приложение рассчитает по первоначальной сумме и размеру платежа.</small></div>
+<div class="field"><label for="memo">Заметка (необязательно)</label><input id="memo" maxlength="120" placeholder="Например, последний платёж в декабре"></div>
+<div class="form-actions"><button class="primary" type="submit" id="saveBtn">Сохранить</button><button class="ghost" type="button" id="cancelBtn">Отмена</button></div><button class="danger" type="button" id="deleteBtn" style="display:none">Удалить запись</button></form></div></div>
+ <div class="modal-backdrop action-modal" id="actionBackdrop" role="dialog" aria-modal="true" aria-labelledby="actionTitle"><div class="modal"><div class="modal-head"><h2 id="actionTitle">Операция</h2><button class="close" id="closeAction" aria-label="Закрыть">×</button></div><form id="actionForm"><div id="actionFields"></div><div class="form-actions"><button class="primary" type="submit" id="actionSubmit">Сохранить</button><button class="ghost" type="button" id="cancelAction">Отмена</button></div></form></div></div><div class="toast" id="toast"></div>
 <script>
 const STORAGE_KEY='mini-credit-tracker-v2';
 const money=n=>new Intl.NumberFormat('uk-UA',{style:'currency',currency:'UAH',maximumFractionDigits:0}).format(Number(n)||0);
-const dateFmt=s=>new Date(s+'T12:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'short'});
+const dateFmt=s=>s?new Date(s+'T12:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'short'}):'Дата не указана';
 const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
-const monthKey=s=>{const d=new Date(s+'T12:00:00');return `${d.getFullYear()}-${d.getMonth()}`};
+const monthKey=s=>String(s||'').slice(0,7);
+ const monthEnd=month=>{const [y,m]=month.split('-').map(Number);const d=new Date(y,m,0);return `${y}-${String(m).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+ const parseAmount=value=>Number(String(value??'').trim().replace(',','.'));
+const currentMonth=()=>monthKey(todayISO());
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const round=n=>Math.round((Number(n)||0)*100)/100;
 function shiftDate(date,frequency){let d=new Date(date+'T12:00:00');if(frequency==='weekly')d.setDate(d.getDate()+7);else if(frequency==='monthly'){const day=d.getDate();d.setDate(1);d.setMonth(d.getMonth()+1);const last=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();d.setDate(Math.min(day,last));}return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-function calc(c){const original=Math.max(0,Number(c.original)||0),payment=Math.max(0,Number(c.payment)||0);const totalPayments=payment>0?Math.max(1,Math.ceil(original/payment)):0;const paidCount=Math.min(totalPayments,Math.max(0,Math.floor(Number(c.paidCount)||0)));const leftCount=Math.max(0,totalPayments-paidCount);const remaining=Math.min(original,Math.round(Math.max(0,original-paidCount*payment)*100)/100);const totalFuture=Math.round(Math.max(0,original-paidCount*payment)*100)/100;return {original,payment,totalPayments,paidCount,leftCount,remaining,totalFuture}}
-function load(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]')}catch{return []}}
+function calc(c){
+ if(c.type==='card'){
+  const opening=Math.max(0,Number(c.original)||0);
+  const ops=Array.isArray(c.operations)?c.operations:[];
+  const expenses=ops.filter(o=>o.kind==='expense').reduce((s,o)=>s+Number(o.amount||0),0);
+  const repayments=ops.filter(o=>o.kind==='repayment').reduce((s,o)=>s+Number(o.amount||0),0);
+  const debt=round(Math.max(0,opening+expenses-repayments));
+  const progress=opening>0?Math.max(0,Math.min(100,((opening-debt)/opening)*100)):debt===0?100:0;
+  return {isCard:true,original:opening,currentDebt:debt,progress,expenses:round(expenses),repayments:round(repayments)};
+ }
+ const original=Math.max(0,Number(c.original)||0),payment=Math.max(0,Number(c.payment)||0);
+ const totalPayments=payment>0?Math.max(1,Math.ceil(original/payment)):0;
+ const paidCount=Math.min(totalPayments,Math.max(0,Math.floor(Number(c.paidCount)||0)));
+ const leftCount=Math.max(0,totalPayments-paidCount);
+ const remaining=Math.min(original,round(Math.max(0,original-paidCount*payment)));
+ const totalFuture=round(Math.max(0,original-paidCount*payment));
+ return {isCard:false,original,payment,totalPayments,paidCount,leftCount,remaining,totalFuture};
+}
+function load(){try{const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(data)?data.map(c=>({...c,type:c.type||'loan',operations:Array.isArray(c.operations)?c.operations:[],monthlyPayments:Array.isArray(c.monthlyPayments)?c.monthlyPayments:[]})):[]}catch{return []}}
 let credits=load(),editingId=null;
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(credits));render()}
-function render(){const active=credits.filter(c=>calc(c).leftCount>0);document.getElementById('totalDebt').textContent=money(active.reduce((s,c)=>s+calc(c).totalFuture,0));const now=new Date(),thisMonth=`${now.getFullYear()}-${now.getMonth()}`;const dueThisMonth=active.filter(c=>monthKey(c.dueDate)===thisMonth);document.getElementById('monthTotal').textContent=money(dueThisMonth.reduce((s,c)=>s+Math.min(calc(c).payment,calc(c).totalFuture),0));document.getElementById('monthHint').textContent=dueThisMonth.length?`${dueThisMonth.length} ${dueThisMonth.length===1?'платёж':'платежа/платежей'} по ближайшим датам`:'Нет дат платежей в этом месяце';const upcoming=active.slice().sort((a,b)=>a.dueDate.localeCompare(b.dueDate))[0];document.getElementById('nextAmount').textContent=upcoming?money(Math.min(calc(upcoming).payment,calc(upcoming).totalFuture)):'—';document.getElementById('nextHint').textContent=upcoming?`${upcoming.name} · ${dateFmt(upcoming.dueDate)}`:'Нет предстоящих платежей';document.getElementById('creditCount').textContent=`${active.length} ${active.length===1?'кредит':active.length<5?'кредита':'кредитов'}`;const list=document.getElementById('creditList');if(!credits.length){list.innerHTML='<div class="empty"><div class="emoji">🩵</div><strong>Пока здесь пусто</strong><div style="font-size:13px;margin:7px 0 14px">Добавь первый кредит — и все ближайшие платежи будут под рукой.</div><button class="primary" onclick="openModal()">＋ Добавить кредит</button></div>';return}list.innerHTML=credits.slice().sort((a,b)=>a.dueDate.localeCompare(b.dueDate)).map(c=>{const x=calc(c),pay=Math.min(x.payment,x.totalFuture),isOver=c.dueDate<todayISO()&&x.leftCount>0;const segments=Array.from({length:Math.min(x.totalPayments,24)},(_,i)=>`<span class="segment ${i<x.paidCount?'filled':''}"></span>`).join('');const countText=`<div class="payment-count"><strong>${x.paidCount}/${x.totalPayments}</strong> оплачено · осталось: <strong>${x.leftCount}</strong></div>`;return `<article class="credit"><div class="credit-top"><div><div class="credit-name">${esc(c.name)}</div><div class="credit-meta">${c.memo?esc(c.memo):'Следующий платёж'}</div></div><span class="pill ${isOver?'overdue':x.leftCount===0?'done':''}">${x.leftCount===0?'Выплачено':isOver?'Просрочена дата':`До ${dateFmt(c.dueDate)}`}</span></div><div class="credit-numbers"><div><div class="number-label">Первоначальная сумма</div><div class="number-value">${money(x.original)}</div><div class="number-label" style="margin-top:9px">Осталось выплатить</div><div class="number-value">${money(x.totalFuture)}</div></div><div style="text-align:right"><div class="number-label">Ежемесячный платёж</div><div class="number-value small">${money(x.payment)}</div><div class="number-label" style="margin-top:9px">Ближайший платёж</div><div class="number-value small">${x.leftCount?money(pay):money(0)}</div></div></div><div class="progress" aria-label="${x.paidCount} из ${x.totalPayments} платежей оплачено">${segments}</div>${countText}<div class="card-actions">${x.leftCount>0?`<button class="paid" onclick="markPaid('${c.id}')">✓ Оплачено</button>`:'<span class="pill done">✓ Выплачено</span>'}<button class="edit" onclick="editCredit('${c.id}')">Изменить</button></div></article>`}).join('')}
-function openModal(id=null){editingId=id;const c=credits.find(x=>x.id===id);document.getElementById('modalTitle').textContent=c?'Изменить кредит':'Новый кредит';document.getElementById('saveBtn').textContent=c?'Сохранить изменения':'Сохранить кредит';document.getElementById('deleteBtn').style.display=c?'block':'none';document.getElementById('name').value=c?.name||'';document.getElementById('original').value=c?.original??'';document.getElementById('payment').value=c?.payment??'';document.getElementById('dueDate').value=c?.dueDate||todayISO();document.getElementById('frequency').value=c?.frequency||'monthly';document.getElementById('paidCountInput').value=c?.paidCount??0;document.getElementById('memo').value=c?.memo||'';document.getElementById('modalBackdrop').classList.add('open');setTimeout(()=>document.getElementById('name').focus(),100)}function closeModal(){document.getElementById('modalBackdrop').classList.remove('open');editingId=null}window.openModal=openModal;window.editCredit=id=>openModal(id);
+function activeRecord(c){const x=calc(c);return x.isCard?x.currentDebt>0:x.leftCount>0}
+function cardMonthly(c,month=currentMonth()){return (c.monthlyPayments||[]).find(p=>p.month===month)||null}
+function render(){
+ const active=credits.filter(activeRecord);
+ document.getElementById('totalDebt').textContent=money(active.reduce((s,c)=>{const x=calc(c);return s+(x.isCard?x.currentDebt:x.totalFuture)},0));
+ const month=currentMonth();
+ const loanDue=active.filter(c=>c.type!=='card'&&monthKey(c.dueDate)===month).reduce((s,c)=>s+Math.min(calc(c).payment,calc(c).totalFuture),0);
+ const cardDue=credits.filter(c=>c.type==='card').reduce((s,c)=>{const p=cardMonthly(c,month);return s+(p?Number(p.amount)||0:0)},0);
+ document.getElementById('monthTotal').textContent=money(loanDue+cardDue);
+ document.getElementById('monthHint').textContent=(loanDue+cardDue)>0?'Платежи по кредитам и кредиткам':'Нет запланированных платежей';
+ const upcoming=[];
+ active.forEach(c=>{
+  if(c.type==='card'){(c.monthlyPayments||[]).filter(p=>p.status!=='paid'&&p.dueDate>=todayISO()).forEach(p=>upcoming.push({date:p.dueDate,amount:Math.max(0,Number(p.amount)-Number(p.paidAmount||0)),name:c.name}))}
+  else upcoming.push({date:c.dueDate,amount:Math.min(calc(c).payment,calc(c).totalFuture),name:c.name});
+ });
+ upcoming.sort((a,b)=>a.date.localeCompare(b.date));
+ const next=upcoming[0];
+ document.getElementById('nextAmount').textContent=next?money(next.amount):'—';
+ document.getElementById('nextHint').textContent=next?`${next.name} · ${dateFmt(next.date)}`:'Нет предстоящих платежей';
+ document.getElementById('creditCount').textContent=`${active.length} ${active.length===1?'запись':active.length<5?'записи':'записей'}`;
+ const list=document.getElementById('creditList');
+ if(!credits.length){list.innerHTML='<div class="empty"><div class="emoji">🩵</div><strong>Пока здесь пусто</strong><div style="font-size:13px;margin:7px 0 14px">Добавь первый кредит — и все ближайшие платежи будут под рукой.</div><button class="primary" onclick="openModal()">＋ Добавить запись</button></div>';return}
+ list.innerHTML=credits.slice().sort((a,b)=>{
+  const da=a.type==='card'?(cardMonthly(a)?.dueDate||'9999-12-31'):a.dueDate;
+  const db=b.type==='card'?(cardMonthly(b)?.dueDate||'9999-12-31'):b.dueDate;
+  return da.localeCompare(db);
+ }).map(c=>{
+  const x=calc(c);
+  if(x.isCard){
+   const monthPay=cardMonthly(c);
+   const ops=(c.operations||[]).slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,5);
+   const progress=Math.round(x.progress);
+   const badge=x.currentDebt===0?'Погашена':monthPay&&monthPay.status!=='paid'&&monthPay.dueDate<todayISO()?'Платёж просрочен':'Кредитная карта';
+   const monthHtml=monthPay?`<div class="monthly-box"><div>Обязательный платёж за этот месяц</div><strong>${money(monthPay.amount)}</strong><div class="muted">${dateFmt(monthEnd(monthPay.month))} · ${Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0))<=0?'Оплачен':money(Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0)))+' осталось'}</div></div>`:'<div class="monthly-box">Платёж на этот месяц ещё не добавлен</div>';
+   const history=ops.length?ops.map(o=>`<div class="history-item"><span>${o.kind==='expense'?'Расход':'Погашение'} · ${dateFmt(o.date)}${o.note?' · '+esc(o.note):''}</span><strong>${o.kind==='expense'?'+':'−'}${money(o.amount)}</strong></div>`).join(''):'<div class="history-item">Операций пока нет</div>';
+   const paymentHistory=(c.monthlyPayments||[]).slice().sort((a,b)=>b.month.localeCompare(a.month)).map(p=>`<div class="history-item"><span>Обязательный платёж · ${p.month} · ${dateFmt(p.dueDate)} · ${p.status==='paid'?'оплачен':'ожидает'}</span><strong>${money(p.amount)}</strong></div>`).join('')||'<div class="history-item">Обязательные платежи ещё не добавлялись</div>';
+   return `<article class="credit"><div class="credit-top"><div><div class="credit-name">${esc(c.name)}</div><div class="credit-meta">${c.memo?esc(c.memo):'Кредитная карта'}</div></div><span class="pill ${x.currentDebt===0?'done':monthPay&&monthPay.status!=='paid'&&monthPay.dueDate<todayISO()?'overdue':''}">${badge}</span></div>
+   <div class="credit-numbers"><div><div class="number-label">Задолженность при добавлении</div><div class="number-value">${money(x.original)}</div><div class="number-label" style="margin-top:9px">Текущая задолженность</div><div class="number-value">${money(x.currentDebt)}</div></div><div style="text-align:right"><div class="number-label">Расходы по карте</div><div class="number-value small">${money(x.expenses)}</div><div class="number-label" style="margin-top:9px">Погашено</div><div class="number-value small">${money(x.repayments)}</div></div></div>
+   <div class="progress solid" aria-label="Погашено примерно ${progress}%"><div class="bar" style="width:${progress}%"></div></div><div class="payment-count"><strong>${progress}%</strong> погашения от начальной задолженности</div>
+   ${monthHtml}<div class="card-tools"><button class="expense" onclick="openCardAction('${c.id}','expense')">＋ Расход</button>${monthPay&&Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0))>0?'<button class="mandatory" onclick="openCardAction(\''+c.id+'\',\'mandatoryRepayment\')">✓ Оплатить обязательный платёж · '+money(Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0)))+'</button>':''}<button class="extra" onclick="openCardAction('${c.id}','extraRepayment')">↓ Дополнительное погашение</button><button class="schedule" onclick="openCardAction('${c.id}','schedule')">▦ ${monthPay?'Изменить платёж месяца':'Назначить платёж месяца'}</button></div>
+   <details class="history"><summary>История операций и обязательных платежей</summary><div class="history-list"><strong style="font-size:11px">Обязательные платежи</strong>${paymentHistory}<strong style="font-size:11px;margin-top:7px">Движение задолженности</strong>${history}</div></details>
+   <div class="card-actions" style="margin-top:10px"><button class="edit" onclick="editCredit('${c.id}')">Изменить</button></div></article>`;
+  }
+  const pay=Math.min(x.payment,x.totalFuture),isOver=c.dueDate<todayISO()&&x.leftCount>0;
+  const segments=Array.from({length:Math.min(x.totalPayments,24)},(_,i)=>`<span class="segment ${i<x.paidCount?'filled':''}"></span>`).join('');
+  const countText=`<div class="payment-count"><strong>${x.paidCount}/${x.totalPayments}</strong> оплачено · осталось: <strong>${x.leftCount}</strong></div>`;
+  return `<article class="credit"><div class="credit-top"><div><div class="credit-name">${esc(c.name)}</div><div class="credit-meta">${c.memo?esc(c.memo):'Следующий платёж'}</div></div><span class="pill ${isOver?'overdue':x.leftCount===0?'done':''}">${x.leftCount===0?'Выплачено':isOver?'Просрочена дата':`До ${dateFmt(c.dueDate)}`}</span></div><div class="credit-numbers"><div><div class="number-label">Первоначальная сумма</div><div class="number-value">${money(x.original)}</div><div class="number-label" style="margin-top:9px">Осталось выплатить</div><div class="number-value">${money(x.totalFuture)}</div></div><div style="text-align:right"><div class="number-label">Ежемесячный платёж</div><div class="number-value small">${money(x.payment)}</div><div class="number-label" style="margin-top:9px">Ближайший платёж</div><div class="number-value small">${x.leftCount?money(pay):money(0)}</div></div></div><div class="progress" aria-label="${x.paidCount} из ${x.totalPayments} платежей оплачено">${segments}</div>${countText}<div class="card-actions">${x.leftCount>0?`<button class="paid" onclick="markPaid('${c.id}')">✓ Оплачено</button>`:'<span class="pill done">✓ Выплачено</span>'}<button class="edit" onclick="editCredit('${c.id}')">Изменить</button></div></article>`;
+ }).join('');
+}
+function toggleTypeFields(){
+ const isCard=document.getElementById('recordType').value==='card';
+ document.querySelectorAll('.loan-only').forEach(el=>el.style.display=isCard?'none':'grid');
+ document.getElementById('payment').required=!isCard;
+ document.getElementById('dueDate').required=!isCard;
+ document.getElementById('originalLabel').textContent=isCard?'Начальная задолженность, ₴':'Первоначальная сумма кредита, ₴';
+ document.getElementById('original').placeholder=isCard?'15000':'5000';
+}
+function openModal(id=null){
+ editingId=id;const c=credits.find(x=>x.id===id);
+ document.getElementById('modalTitle').textContent=c?'Изменить запись':'Новая запись';
+ document.getElementById('saveBtn').textContent=c?'Сохранить изменения':'Сохранить';
+ document.getElementById('deleteBtn').style.display=c?'block':'none';
+ document.getElementById('recordType').value=c?.type||'loan';
+ document.getElementById('recordType').disabled=!!c;
+ document.getElementById('name').value=c?.name||'';
+ document.getElementById('original').value=c?.original??'';
+ document.getElementById('original').disabled=!!(c?.type==='card'&&(c.operations||[]).length);
+ document.getElementById('payment').value=c?.payment??'';
+ document.getElementById('dueDate').value=c?.dueDate||todayISO();
+ document.getElementById('frequency').value=c?.frequency||'monthly';
+ document.getElementById('paidCountInput').value=c?.paidCount??0;
+ document.getElementById('memo').value=c?.memo||'';
+ toggleTypeFields();
+ document.getElementById('modalBackdrop').classList.add('open');
+ setTimeout(()=>document.getElementById('name').focus(),100);
+}
+function closeModal(){document.getElementById('modalBackdrop').classList.remove('open');editingId=null}
+window.openModal=openModal;window.editCredit=id=>openModal(id);
 window.markPaid=id=>{const c=credits.find(x=>x.id===id);if(!c)return;const x=calc(c);if(!x.leftCount)return;const amount=Math.min(x.payment,x.totalFuture);if(!confirm(`Отметить платёж ${money(amount)} по кредиту «${c.name}» как оплаченный?`))return;c.paidCount=Math.min(x.totalPayments,x.paidCount+1);if(c.paidCount<x.totalPayments&&c.frequency!=='once')c.dueDate=shiftDate(c.dueDate,c.frequency);else if(c.paidCount<x.totalPayments&&c.frequency==='once')c.dueDate=todayISO();save();toast(c.paidCount>=x.totalPayments?'Ура, кредит закрыт! 🎉':'Платёж отмечен, данные обновлены 💗')};
-document.getElementById('addBtn').onclick=()=>openModal();document.getElementById('closeModal').onclick=closeModal;document.getElementById('cancelBtn').onclick=closeModal;document.getElementById('modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop')closeModal()});
-document.getElementById('creditForm').addEventListener('submit',e=>{e.preventDefault();const data={name:document.getElementById('name').value.trim(),original:Number(document.getElementById('original').value),payment:Number(document.getElementById('payment').value),dueDate:document.getElementById('dueDate').value,frequency:document.getElementById('frequency').value,paidCount:Math.max(0,Math.floor(Number(document.getElementById('paidCountInput').value)||0)),memo:document.getElementById('memo').value.trim()};if(!data.name||!data.dueDate||data.original<=0||data.payment<=0){toast('Проверь название и суммы');return}const total=Math.max(1,Math.ceil(data.original/data.payment));if(data.paidCount>total){toast(`У этого кредита всего ${total} платежей`);return}if(editingId){const c=credits.find(x=>x.id===editingId);Object.assign(c,data)}else credits.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),...data});save();closeModal();toast('Сохранено 💗')});document.getElementById('deleteBtn').onclick=()=>{if(!editingId)return;if(confirm('Удалить этот кредит из списка?')){credits=credits.filter(c=>c.id!==editingId);save();closeModal();toast('Кредит удалён')}};let toastTimer;function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2400)}render();
+
+let actionCreditId=null,actionKind=null;
+const makeId=()=>crypto.randomUUID?crypto.randomUUID():String(Date.now());
+function openCardAction(id,kind){
+ const c=credits.find(x=>x.id===id);if(!c)return;
+ const x=calc(c),monthPay=cardMonthly(c),remaining=monthPay?Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0)):0;
+ if(kind==='mandatoryRepayment'&&(!monthPay||remaining<=0)){toast('Обязательный платёж уже закрыт или не назначен');return}
+ if(kind!=='schedule'&&x.currentDebt<=0){toast('Задолженность уже погашена');return}
+ actionCreditId=id;actionKind=kind;
+ const cfg={
+  expense:['Добавить расход','Сумма расхода, ₴','Например, 1500','Сумма увеличит текущую задолженность по карте.','Добавить расход'],
+  extraRepayment:['Дополнительное погашение','Сумма погашения, ₴','Например, 500','Погашение уменьшит общий долг, но не будет засчитано в обязательный платёж месяца.','Внести погашение'],
+  mandatoryRepayment:['Оплата обязательного платежа','Сумма оплаты, ₴',String(remaining),'Осталось внести по обязательному платежу: '+money(remaining)+'. Можно оплатить полностью или частично.','Оплатить платёж'],
+  schedule:[monthPay?'Изменить обязательный платёж':'Назначить обязательный платёж','Сумма обязательного платежа, ₴','Например, 513','Срок оплаты автоматически устанавливается на последний день текущего месяца.','Сохранить платёж']
+ }[kind];
+ document.getElementById('actionTitle').textContent=cfg[0];
+ const amountValue=kind==='mandatoryRepayment'?remaining:kind==='schedule'&&monthPay?monthPay.amount:'';
+ const noteField=(kind==='expense'||kind==='extraRepayment')?'<div class="field"><label for="actionNote">Комментарий (необязательно)</label><input id="actionNote" maxlength="120" placeholder="Добавить заметку"></div>':'';
+ document.getElementById('actionFields').innerHTML='<div class="field"><label for="actionAmount">'+cfg[1]+'</label><input id="actionAmount" type="text" inputmode="decimal" autocomplete="off" required placeholder="'+cfg[2]+'" value="'+amountValue+'"></div><p class="action-help">'+cfg[3]+'</p>'+noteField;
+ document.getElementById('actionSubmit').textContent=cfg[4];
+ document.getElementById('actionBackdrop').classList.add('open');
+ // Не открываем клавиатуру автоматически: на Android это может конфликтовать с кнопкой скрытия IME.
+}
+window.openCardAction=openCardAction;
+function closeAction(){document.getElementById('actionBackdrop').classList.remove('open');actionCreditId=null;actionKind=null}
+document.getElementById('actionForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const c=credits.find(x=>x.id===actionCreditId);if(!c)return;
+ const amount=round(parseAmount(document.getElementById('actionAmount').value));
+ const note=document.getElementById('actionNote')?.value.trim()||'';
+ if(!Number.isFinite(amount)||amount<=0){toast('Укажи корректную сумму');return}
+ const x=calc(c);
+ if(actionKind==='expense'){c.operations.push({id:makeId(),kind:'expense',amount,date:todayISO(),note});closeAction();save();toast('Расход добавлен 💗');return}
+ if(actionKind==='extraRepayment'||actionKind==='mandatoryRepayment'){
+  if(amount>x.currentDebt){toast('Сумма не может превышать текущую задолженность');return}
+  let linked=null;
+  if(actionKind==='mandatoryRepayment'){
+   linked=cardMonthly(c);const left=linked?Math.max(0,Number(linked.amount)-Number(linked.paidAmount||0)):0;
+   if(!linked||left<=0){toast('Обязательный платёж уже закрыт или не назначен');return}
+   if(amount>left){toast('Сумма не может превышать остаток обязательного платежа');return}
+  }
+  c.operations.push({id:makeId(),kind:'repayment',amount,date:todayISO(),note,monthlyPaymentId:linked?.id||null});
+  if(linked){linked.paidAmount=round(Number(linked.paidAmount||0)+amount);linked.status=linked.paidAmount>=Number(linked.amount)?'paid':'pending'}
+  closeAction();save();toast(linked?(linked.status==='paid'?'Обязательный платёж закрыт 💗':'Частичная оплата записана'):'Дополнительное погашение добавлено 💗');return;
+ }
+ if(actionKind==='schedule'){
+  const month=currentMonth(),dueDate=monthEnd(month);
+  c.monthlyPayments=c.monthlyPayments||[];
+  const old=c.monthlyPayments.find(p=>p.month===month);
+  if(old){const paid=Number(old.paidAmount||0);if(amount<paid){toast('Сумма не может быть меньше уже внесённых погашений ('+money(paid)+')');return}old.amount=amount;old.dueDate=dueDate;old.status=paid>=amount?'paid':'pending'}
+  else c.monthlyPayments.push({id:makeId(),month,amount,dueDate,paidAmount:0,status:'pending'});
+  closeAction();save();toast('Обязательный платёж сохранён 💗');
+ }
+});
+document.getElementById('closeAction').onclick=closeAction;
+document.getElementById('cancelAction').onclick=closeAction;
+document.getElementById('actionBackdrop').addEventListener('click',e=>{if(e.target.id==='actionBackdrop')closeAction()});
+document.getElementById('recordType').addEventListener('change',toggleTypeFields);
+document.getElementById('addBtn').onclick=()=>openModal();
+document.getElementById('closeModal').onclick=closeModal;
+document.getElementById('cancelBtn').onclick=closeModal;
+document.getElementById('modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop')closeModal()});
+document.getElementById('creditForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const type=document.getElementById('recordType').value;
+ const data={type,name:document.getElementById('name').value.trim(),original:parseAmount(document.getElementById('original').value),memo:document.getElementById('memo').value.trim()};
+ if(!data.name||!Number.isFinite(data.original)||data.original<=0){toast('Проверь название и сумму');return}
+ if(type==='loan'){
+  data.payment=parseAmount(document.getElementById('payment').value);data.dueDate=document.getElementById('dueDate').value;data.frequency=document.getElementById('frequency').value;data.paidCount=Math.max(0,Math.floor(parseAmount(document.getElementById('paidCountInput').value)||0));
+  if(!data.dueDate||!Number.isFinite(data.payment)||data.payment<=0){toast('Проверь платёж и дату');return}
+  const total=Math.max(1,Math.ceil(data.original/data.payment));if(data.paidCount>total){toast(`У этого кредита всего ${total} платежей`);return}
+ }
+ if(editingId){
+  const c=credits.find(x=>x.id===editingId);if(!c)return;
+  Object.assign(c,{name:data.name,memo:data.memo});
+  if(c.type==='loan')Object.assign(c,data);
+ }else if(type==='card'){
+  credits.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),...data,operations:[],monthlyPayments:[]});
+ }else credits.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),...data});
+ save();closeModal();toast('Сохранено 💗');
+});
+document.getElementById('deleteBtn').onclick=()=>{if(!editingId)return;if(confirm('Удалить эту запись из списка?')){credits=credits.filter(c=>c.id!==editingId);save();closeModal();toast('Запись удалена')}};
+let toastTimer;function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2400)}
+render();
 </script></body></html>
