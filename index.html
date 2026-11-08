@@ -12,6 +12,9 @@
 .card-tools button.expense{background:#fff5f5;color:#a95765;border-color:#f3dfe2}
 .card-tools button.repay{background:#edf7f2;color:#397b62;border-color:#dceee5}
 .card-tools button.schedule{background:#eef3ff;color:#426bb6;border-color:#dce6fb}
+ .card-tools button.mandatory{flex-basis:100%;background:#eaf3ff;color:#315da9;border-color:#d8e5fb;padding:13px;font-size:14px}
+ .card-tools button.extra{background:#fff;color:var(--muted);font-weight:650}
+ .action-help{font-size:12px;color:var(--muted);line-height:1.45;margin:-3px 0 3px}
 .history{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
 .history summary{font-size:12px;color:var(--muted);font-weight:700;cursor:pointer}
 .history-list{display:grid;gap:7px;margin-top:9px}
@@ -31,13 +34,15 @@
 <div class="form-grid loan-only"><div class="field"><label for="dueDate">Ближайшая дата</label><input id="dueDate" type="date"></div><div class="field"><label for="frequency">Повтор платежа</label><select id="frequency"><option value="monthly">Каждый месяц</option><option value="weekly">Каждую неделю</option><option value="once">Только один платёж</option></select></div></div>
 <div class="field loan-only"><label for="paidCountInput">Уже оплачено платежей</label><input id="paidCountInput" type="number" min="0" step="1" value="0"><small style="font-size:11px;color:var(--muted)">Общее число платежей приложение рассчитает по первоначальной сумме и размеру платежа.</small></div>
 <div class="field"><label for="memo">Заметка (необязательно)</label><input id="memo" maxlength="120" placeholder="Например, последний платёж в декабре"></div>
-<div class="form-actions"><button class="primary" type="submit" id="saveBtn">Сохранить</button><button class="ghost" type="button" id="cancelBtn">Отмена</button></div><button class="danger" type="button" id="deleteBtn" style="display:none">Удалить запись</button></form></div></div><div class="toast" id="toast"></div>
+<div class="form-actions"><button class="primary" type="submit" id="saveBtn">Сохранить</button><button class="ghost" type="button" id="cancelBtn">Отмена</button></div><button class="danger" type="button" id="deleteBtn" style="display:none">Удалить запись</button></form></div></div>
+ <div class="modal-backdrop action-modal" id="actionBackdrop" role="dialog" aria-modal="true" aria-labelledby="actionTitle"><div class="modal"><div class="modal-head"><h2 id="actionTitle">Операция</h2><button class="close" id="closeAction" aria-label="Закрыть">×</button></div><form id="actionForm"><div id="actionFields"></div><div class="form-actions"><button class="primary" type="submit" id="actionSubmit">Сохранить</button><button class="ghost" type="button" id="cancelAction">Отмена</button></div></form></div></div><div class="toast" id="toast"></div>
 <script>
 const STORAGE_KEY='mini-credit-tracker-v2';
 const money=n=>new Intl.NumberFormat('uk-UA',{style:'currency',currency:'UAH',maximumFractionDigits:0}).format(Number(n)||0);
 const dateFmt=s=>s?new Date(s+'T12:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'short'}):'Дата не указана';
 const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
-const monthKey=s=>{const d=new Date(s+'T12:00:00');return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`};
+const monthKey=s=>String(s||'').slice(0,7);
+ const monthEnd=month=>{const [y,m]=month.split('-').map(Number);const d=new Date(y,m,0);return `${y}-${String(m).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 const currentMonth=()=>monthKey(todayISO());
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const round=n=>Math.round((Number(n)||0)*100)/100;
@@ -96,13 +101,13 @@ function render(){
    const ops=(c.operations||[]).slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,5);
    const progress=Math.round(x.progress);
    const badge=x.currentDebt===0?'Погашена':monthPay&&monthPay.status!=='paid'&&monthPay.dueDate<todayISO()?'Платёж просрочен':'Кредитная карта';
-   const monthHtml=monthPay?`<div class="monthly-box"><div>Обязательный платёж за этот месяц</div><strong>${money(monthPay.amount)}</strong><div class="muted">${dateFmt(monthPay.dueDate)} · ${monthPay.status==='paid'?'Оплачен':money(Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0)))+' осталось'}</div></div>`:'<div class="monthly-box">Платёж на этот месяц ещё не добавлен</div>';
+   const monthHtml=monthPay?`<div class="monthly-box"><div>Обязательный платёж за этот месяц</div><strong>${money(monthPay.amount)}</strong><div class="muted">${dateFmt(monthEnd(monthPay.month))} · ${Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0))<=0?'Оплачен':money(Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0)))+' осталось'}</div></div>`:'<div class="monthly-box">Платёж на этот месяц ещё не добавлен</div>';
    const history=ops.length?ops.map(o=>`<div class="history-item"><span>${o.kind==='expense'?'Расход':'Погашение'} · ${dateFmt(o.date)}${o.note?' · '+esc(o.note):''}</span><strong>${o.kind==='expense'?'+':'−'}${money(o.amount)}</strong></div>`).join(''):'<div class="history-item">Операций пока нет</div>';
    const paymentHistory=(c.monthlyPayments||[]).slice().sort((a,b)=>b.month.localeCompare(a.month)).map(p=>`<div class="history-item"><span>Обязательный платёж · ${p.month} · ${dateFmt(p.dueDate)} · ${p.status==='paid'?'оплачен':'ожидает'}</span><strong>${money(p.amount)}</strong></div>`).join('')||'<div class="history-item">Обязательные платежи ещё не добавлялись</div>';
    return `<article class="credit"><div class="credit-top"><div><div class="credit-name">${esc(c.name)}</div><div class="credit-meta">${c.memo?esc(c.memo):'Кредитная карта'}</div></div><span class="pill ${x.currentDebt===0?'done':monthPay&&monthPay.status!=='paid'&&monthPay.dueDate<todayISO()?'overdue':''}">${badge}</span></div>
    <div class="credit-numbers"><div><div class="number-label">Задолженность при добавлении</div><div class="number-value">${money(x.original)}</div><div class="number-label" style="margin-top:9px">Текущая задолженность</div><div class="number-value">${money(x.currentDebt)}</div></div><div style="text-align:right"><div class="number-label">Расходы по карте</div><div class="number-value small">${money(x.expenses)}</div><div class="number-label" style="margin-top:9px">Погашено</div><div class="number-value small">${money(x.repayments)}</div></div></div>
    <div class="progress solid" aria-label="Погашено примерно ${progress}%"><div class="bar" style="width:${progress}%"></div></div><div class="payment-count"><strong>${progress}%</strong> погашения от начальной задолженности</div>
-   ${monthHtml}<div class="card-tools"><button class="expense" onclick="addCardExpense('${c.id}')">＋ Расход</button><button class="repay" onclick="repayCard('${c.id}')">↓ Погасить</button><button class="schedule" onclick="setMonthlyPayment('${c.id}')">▦ Платёж месяца</button></div>
+   ${monthHtml}<div class="card-tools"><button class="expense" onclick="openCardAction('${c.id}','expense')">＋ Расход</button>${monthPay&&Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0))>0?'<button class="mandatory" onclick="openCardAction(\''+c.id+'\',\'mandatoryRepayment\')">✓ Оплатить обязательный платёж · '+money(Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0)))+'</button>':''}<button class="extra" onclick="openCardAction('${c.id}','extraRepayment')">↓ Дополнительное погашение</button><button class="schedule" onclick="openCardAction('${c.id}','schedule')">▦ ${monthPay?'Изменить платёж месяца':'Назначить платёж месяца'}</button></div>
    <details class="history"><summary>История операций и обязательных платежей</summary><div class="history-list"><strong style="font-size:11px">Обязательные платежи</strong>${paymentHistory}<strong style="font-size:11px;margin-top:7px">Движение задолженности</strong>${history}</div></details>
    <div class="card-actions" style="margin-top:10px"><button class="edit" onclick="editCredit('${c.id}')">Изменить</button></div></article>`;
   }
@@ -142,44 +147,61 @@ function openModal(id=null){
 function closeModal(){document.getElementById('modalBackdrop').classList.remove('open');editingId=null}
 window.openModal=openModal;window.editCredit=id=>openModal(id);
 window.markPaid=id=>{const c=credits.find(x=>x.id===id);if(!c)return;const x=calc(c);if(!x.leftCount)return;const amount=Math.min(x.payment,x.totalFuture);if(!confirm(`Отметить платёж ${money(amount)} по кредиту «${c.name}» как оплаченный?`))return;c.paidCount=Math.min(x.totalPayments,x.paidCount+1);if(c.paidCount<x.totalPayments&&c.frequency!=='once')c.dueDate=shiftDate(c.dueDate,c.frequency);else if(c.paidCount<x.totalPayments&&c.frequency==='once')c.dueDate=todayISO();save();toast(c.paidCount>=x.totalPayments?'Ура, кредит закрыт! 🎉':'Платёж отмечен, данные обновлены 💗')};
-window.addCardExpense=id=>{
+
+let actionCreditId=null,actionKind=null;
+const makeId=()=>crypto.randomUUID?crypto.randomUUID():String(Date.now());
+function openCardAction(id,kind){
  const c=credits.find(x=>x.id===id);if(!c)return;
- const amount=Number(prompt('Сумма нового расхода по карте, ₴:',''));
- if(!Number.isFinite(amount)||amount<=0){if(amount!==0)toast('Расход не добавлен: проверь сумму');return}
- const note=prompt('Комментарий к расходу (необязательно):','')||'';
- c.operations=c.operations||[];c.operations.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),kind:'expense',amount:round(amount),date:todayISO(),note:note.trim()});
- save();toast('Расход добавлен 💗');
-};
-window.repayCard=id=>{
- const c=credits.find(x=>x.id===id);if(!c)return;
- const x=calc(c);if(x.currentDebt<=0){toast('Задолженность уже погашена');return}
- const amount=Number(prompt(`Сумма погашения, ₴ (текущий долг ${money(x.currentDebt)}):`,''));
- if(!Number.isFinite(amount)||amount<=0){toast('Погашение не добавлено');return}
- if(amount>x.currentDebt){toast('Сумма погашения не может превышать текущий долг');return}
- const pending=(c.monthlyPayments||[]).filter(p=>p.status!=='paid'&&Number(p.amount)>Number(p.paidAmount||0));
- let linked=null;
- if(pending.length){
-  const options=pending.map((p,i)=>`${i+1}. ${p.month} · ${money(p.amount)} · срок ${dateFmt(p.dueDate)}`).join('\n');
-  const choice=prompt('Если это погашение относится к обязательному платежу, введи его номер. Оставь поле пустым для дополнительного погашения.\n\n'+options,'');
-  if(choice!==null&&choice.trim()!==''){const idx=Number(choice)-1;if(Number.isInteger(idx)&&pending[idx])linked=pending[idx];}
+ const x=calc(c),monthPay=cardMonthly(c),remaining=monthPay?Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0)):0;
+ if(kind==='mandatoryRepayment'&&(!monthPay||remaining<=0)){toast('Обязательный платёж уже закрыт или не назначен');return}
+ if(kind!=='schedule'&&x.currentDebt<=0){toast('Задолженность уже погашена');return}
+ actionCreditId=id;actionKind=kind;
+ const cfg={
+ expense:['Добавить расход','Сумма расхода, ₴','Например, 1500','Сумма увеличит текущую задолженность по карте.','Добавить расход'],
+ extraRepayment:['Дополнительное погашение','Сумма погашения, ₴','Например, 500','Погашение уменьшит общий долг, но не будет засчитано в обязательный платёж месяца.','Внести погашение'],
+ mandatoryRepayment:['Оплата обязательного платежа','Сумма оплаты, ₴',String(remaining),'Осталось внести по обязательному платежу: '+money(remaining)+'. Можно оплатить полностью или частично.','Оплатить платёж'],
+ schedule:[monthPay?'Изменить обязательный платёж':'Назначить обязательный платёж','Сумма обязательного платежа, ₴','Например, 513','Срок оплаты автоматически устанавливается на последний день выбранного месяца.','Сохранить платёж']
+ }[kind];
+ document.getElementById('actionTitle').textContent=cfg[0];
+ const monthField=kind==='schedule'?'<div class="field"><label for="actionMonth">Месяц платежа</label><input id="actionMonth" type="month" required value="'+(monthPay?monthPay.month:currentMonth())+'"></div>':'';
+ document.getElementById('actionFields').innerHTML='<div class="field"><label for="actionAmount">'+cfg[1]+'</label><input id="actionAmount" type="number" min="0.01" step="0.01" required placeholder="'+cfg[2]+'" value="'+(kind==='mandatoryRepayment'?remaining:'')+'"></div>'+monthField+'<p class="action-help">'+cfg[3]+'</p><div class="field"><label for="actionNote">Комментарий (необязательно)</label><input id="actionNote" maxlength="120" placeholder="Добавить заметку"></div>';
+ document.getElementById('actionSubmit').textContent=cfg[4];
+ document.getElementById('actionBackdrop').classList.add('open');
+ setTimeout(()=>document.getElementById('actionAmount').focus(),80);
+}
+window.openCardAction=openCardAction;
+function closeAction(){document.getElementById('actionBackdrop').classList.remove('open');actionCreditId=null;actionKind=null}
+document.getElementById('actionForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const c=credits.find(x=>x.id===actionCreditId);if(!c)return;
+ const amount=round(Number(document.getElementById('actionAmount').value)),note=document.getElementById('actionNote').value.trim();
+ if(!Number.isFinite(amount)||amount<=0){toast('Укажи корректную сумму');return}
+ const x=calc(c);
+ if(actionKind==='expense'){c.operations.push({id:makeId(),kind:'expense',amount,date:todayISO(),note});closeAction();save();toast('Расход добавлен 💗');return}
+ if(actionKind==='extraRepayment'||actionKind==='mandatoryRepayment'){
+  if(amount>x.currentDebt){toast('Сумма не может превышать текущую задолженность');return}
+  let linked=null;
+  if(actionKind==='mandatoryRepayment'){
+   linked=cardMonthly(c);const left=linked?Math.max(0,Number(linked.amount)-Number(linked.paidAmount||0)):0;
+   if(!linked||left<=0){toast('Обязательный платёж уже закрыт или не назначен');return}
+   if(amount>left){toast('Сумма не может превышать остаток обязательного платежа');return}
+  }
+  c.operations.push({id:makeId(),kind:'repayment',amount,date:todayISO(),note,monthlyPaymentId:linked?.id||null});
+  if(linked){linked.paidAmount=round(Number(linked.paidAmount||0)+amount);linked.status=linked.paidAmount>=Number(linked.amount)?'paid':'pending'}
+  closeAction();save();toast(linked?(linked.status==='paid'?'Обязательный платёж закрыт 💗':'Частичная оплата записана'):'Дополнительное погашение добавлено 💗');return;
  }
- const note=prompt('Комментарий к погашению (необязательно):','')||'';
- c.operations=c.operations||[];c.operations.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),kind:'repayment',amount:round(amount),date:todayISO(),note:note.trim(),monthlyPaymentId:linked?.id||null});
- if(linked){linked.paidAmount=round(Number(linked.paidAmount||0)+amount);if(linked.paidAmount>=Number(linked.amount))linked.status='paid';else linked.status='pending';}
- save();toast(linked?(linked.status==='paid'?'Обязательный платёж закрыт 💗':'Частичное погашение записано'):'Погашение добавлено 💗');
-};
-window.setMonthlyPayment=id=>{
- const c=credits.find(x=>x.id===id);if(!c)return;
- const amount=Number(prompt('Обязательный платёж за месяц, ₴:',''));
- if(!Number.isFinite(amount)||amount<=0){toast('Платёж не добавлен');return}
- const dueDate=prompt('Дата обязательного платежа (ГГГГ-ММ-ДД):',todayISO());
- if(!dueDate||!/^\d{4}-\d{2}-\d{2}$/.test(dueDate)){toast('Проверь дату платежа');return}
- const month=monthKey(dueDate);c.monthlyPayments=c.monthlyPayments||[];
- const old=c.monthlyPayments.find(p=>p.month===month);
- if(old){if(!confirm(`За ${month} уже есть платёж. Обновить его сумму и дату?`))return;old.amount=round(amount);old.dueDate=dueDate;if(old.paidAmount>=old.amount)old.status='paid';else old.status='pending';}
- else c.monthlyPayments.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),month,amount:round(amount),dueDate,paidAmount:0,status:'pending'});
- save();toast('Обязательный платёж сохранён 💗');
-};
+ if(actionKind==='schedule'){
+  const month=document.getElementById('actionMonth').value;
+  if(!/^\d{4}-\d{2}$/.test(month)){toast('Выбери месяц платежа');return}
+  c.monthlyPayments=c.monthlyPayments||[];const old=c.monthlyPayments.find(p=>p.month===month);
+  if(old){const paid=Number(old.paidAmount||0);if(amount<paid){toast('Сумма не может быть меньше уже внесённых погашений ('+money(paid)+')');return}old.amount=amount;old.dueDate=monthEnd(month);old.status=paid>=amount?'paid':'pending'}
+  else c.monthlyPayments.push({id:makeId(),month,amount,dueDate:monthEnd(month),paidAmount:0,status:'pending'});
+  closeAction();save();toast('Обязательный платёж сохранён 💗');
+ }
+});
+document.getElementById('closeAction').onclick=closeAction;
+document.getElementById('cancelAction').onclick=closeAction;
+document.getElementById('actionBackdrop').addEventListener('click',e=>{if(e.target.id==='actionBackdrop')closeAction()});
 document.getElementById('recordType').addEventListener('change',toggleTypeFields);
 document.getElementById('addBtn').onclick=()=>openModal();
 document.getElementById('closeModal').onclick=closeModal;
