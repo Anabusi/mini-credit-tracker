@@ -165,7 +165,7 @@ function openCardAction(id,kind){
  }[kind];
  document.getElementById('actionTitle').textContent=cfg[0];
  const amountValue=kind==='mandatoryRepayment'?remaining:kind==='schedule'&&monthPay?monthPay.amount:'';
- const noteField=kind==='schedule'?'':'<div class="field"><label for="actionNote">Комментарий (необязательно)</label><input id="actionNote" maxlength="120" placeholder="Добавить заметку"></div>';
+ const noteField=(kind==='expense'||kind==='extraRepayment')?'<div class="field"><label for="actionNote">Комментарий (необязательно)</label><input id="actionNote" maxlength="120" placeholder="Добавить заметку"></div>':'';
  document.getElementById('actionFields').innerHTML='<div class="field"><label for="actionAmount">'+cfg[1]+'</label><input id="actionAmount" type="text" inputmode="decimal" autocomplete="off" required placeholder="'+cfg[2]+'" value="'+amountValue+'"></div><p class="action-help">'+cfg[3]+'</p>'+noteField;
  document.getElementById('actionSubmit').textContent=cfg[4];
  document.getElementById('actionBackdrop').classList.add('open');
