@@ -150,9 +150,6 @@ window.markPaid=id=>{const c=credits.find(x=>x.id===id);if(!c)return;const x=cal
 
 let actionCreditId=null,actionKind=null;
 const makeId=()=>crypto.randomUUID?crypto.randomUUID():String(Date.now());
-
-let actionCreditId=null,actionKind=null;
-const makeId=()=>crypto.randomUUID?crypto.randomUUID():String(Date.now());
 function openCardAction(id,kind){
  const c=credits.find(x=>x.id===id);if(!c)return;
  const x=calc(c),monthPay=cardMonthly(c),remaining=monthPay?Math.max(0,Number(monthPay.amount)-Number(monthPay.paidAmount||0)):0;
