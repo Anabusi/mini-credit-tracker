@@ -169,7 +169,7 @@ function openCardAction(id,kind){
  document.getElementById('actionFields').innerHTML='<div class="field"><label for="actionAmount">'+cfg[1]+'</label><input id="actionAmount" type="text" inputmode="decimal" autocomplete="off" required placeholder="'+cfg[2]+'" value="'+amountValue+'"></div><p class="action-help">'+cfg[3]+'</p>'+noteField;
  document.getElementById('actionSubmit').textContent=cfg[4];
  document.getElementById('actionBackdrop').classList.add('open');
- setTimeout(()=>document.getElementById('actionAmount').focus(),80);
+ // Не открываем клавиатуру автоматически: на Android это может конфликтовать с кнопкой скрытия IME.
 }
 window.openCardAction=openCardAction;
 function closeAction(){document.getElementById('actionBackdrop').classList.remove('open');actionCreditId=null;actionKind=null}
