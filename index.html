@@ -43,6 +43,7 @@ const dateFmt=s=>s?new Date(s+'T12:00:00').toLocaleDateString('ru-RU',{day:'nume
 const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 const monthKey=s=>String(s||'').slice(0,7);
  const monthEnd=month=>{const [y,m]=month.split('-').map(Number);const d=new Date(y,m,0);return `${y}-${String(m).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+ const parseAmount=value=>Number(String(value??'').trim().replace(',','.'));
 const currentMonth=()=>monthKey(todayISO());
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const round=n=>Math.round((Number(n)||0)*100)/100;
